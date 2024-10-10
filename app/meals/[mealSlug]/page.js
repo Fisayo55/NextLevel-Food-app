@@ -2,6 +2,19 @@ import Image from "next/image";
 import classes from "../../_styles/about-meals.module.css";
 import { getMeal } from "@/app/_lib/meals";
 import { notFound } from "next/navigation";
+import { title } from "process";
+
+export const generateMetadata = async ({ params }) => {
+  const meal = getMeal(params.mealSlug);
+
+  if (!meal) {
+    notFound();
+  }
+  return {
+    title: meal.title,
+    description: meal.summary,
+  };
+};
 const AboutMeals = ({ params }) => {
   const meal = getMeal(params.mealSlug);
 
